@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal</title>
+    <style>
+        /* General Page Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 40px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        .button-container {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Pop-up (Modal) Overlay */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
+            backdrop-filter: blur(3px);
+        }
+
+        /* Pop-up Content Box */
+        .modal-content {
+            background-color: #fff;
+            margin: 10% auto;
+            padding: 0;
+            width: 60%;
+            max-width: 800px;
+            height: 60vh;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        /* Close Button (X) */
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1010;
+        }
+        .close-btn:hover {
+            color: #333;
+        }
+
+        /* Embedded HTML Frame */
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 0 0 8px 8px;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Welcome to My Project Hub</h1>
+    <p>Click any button below to open my other HTML pages inside a pop-up window!</p>
+
+    <!-- Buttons to trigger the pop-ups -->
+    <div class="button-container">
+        <button class="btn" onclick="openPopup('about.html')">View About Page</button>
+        <button class="btn" onclick="openPopup('portfolio.html')">View Portfolio</button>
+        <button class="btn" onclick="openPopup('contact.html')">View Contact Form</button>
+    </div>
+
+    <!-- The Pop-up Structure -->
+    <div id="htmlModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closePopup()">&times;</span>
+            <!-- This iframe dynamically loads the requested HTML file -->
+            <iframe id="popupFrame" src=""></iframe>
+        </div>
+    </div>
+
+    <!-- JavaScript to Handle Opening and Closing -->
+    <script>
+        const modal = document.getElementById("htmlModal");
+        const iframe = document.getElementById("popupFrame");
+
+        // Function to open the pop-up and load the specific HTML file
+        function openPopup(pageUrl) {
+            iframe.src = pageUrl;
+            modal.style.display = "block";
+        }
+
+        // Function to close the pop-up and clear the source
+        function closePopup() {
+            modal.style.display = "none";
+            iframe.src = ""; // Clears content so it resets for the next click
+        }
+
+        // Close the pop-up if the user clicks anywhere outside of the content box
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closePopup();
+            }
+        }
+    </script>
+
+</body>
+</html>
