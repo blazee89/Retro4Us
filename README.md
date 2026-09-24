@@ -1,2 +1,2 @@
 # main
-main documentory
+Used for general documentational purposes
